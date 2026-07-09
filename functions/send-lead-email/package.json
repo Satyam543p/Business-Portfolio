@@ -1,0 +1,10 @@
+{
+  "name": "send-lead-email",
+  "version": "1.0.0",
+  "description": "Appwrite Cloud Function to send email notifications when a client lead is created",
+  "main": "src/main.js",
+  "type": "module",
+  "dependencies": {
+    "nodemailer": "^6.9.13"
+  }
+}
