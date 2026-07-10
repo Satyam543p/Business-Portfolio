@@ -328,8 +328,8 @@ function Admin() {
   const handleProjectSubmit = async (e) => {
     e.preventDefault();
     
-    if (!modalThumbnailId) {
-      triggerGlobalAlert('Please upload a project thumbnail image before saving!', 'red');
+    if (!modalThumbnailId && (!modalLiveUrl || modalLiveUrl.trim() === '')) {
+      triggerGlobalAlert('Please upload a project thumbnail image or provide a Live URL to auto-generate one!', 'red');
       return;
     }
 
@@ -339,7 +339,7 @@ function Admin() {
       description: modalDescription,
       sort_order: parseInt(modalSortOrder) || 0,
       is_published: modalIsPublished,
-      thumbnail_file_id: modalThumbnailId,
+      thumbnail_file_id: modalThumbnailId || 'auto_screenshot',
       roi_metric: modalRoiMetric && modalRoiMetric.trim() !== '' ? modalRoiMetric.trim() : null,
       roi_value: modalRoi !== '' && modalRoi !== null ? parseInt(modalRoi) : null
     };
@@ -378,7 +378,7 @@ function Admin() {
     setModalRoi(proj.roi_value !== null && proj.roi_value !== undefined ? proj.roi_value : '');
     setModalSortOrder(proj.sort_order || 0);
     setModalIsPublished(proj.is_published !== false);
-    setModalThumbnailId(proj.thumbnail_file_id || '');
+    setModalThumbnailId(proj.thumbnail_file_id === 'auto_screenshot' ? '' : (proj.thumbnail_file_id || ''));
     setProjectModalOpen(true);
   };
 
@@ -389,7 +389,7 @@ function Admin() {
       await databases.deleteDocument(DATABASE_ID, CASE_STUDIES_COLLECTION_ID, id);
       triggerGlobalAlert('Case study deleted successfully!', 'green');
 
-      if (proj && proj.thumbnail_file_id) {
+      if (proj && proj.thumbnail_file_id && proj.thumbnail_file_id !== 'auto_screenshot') {
         try {
           await storage.deleteFile(STORAGE_BUCKET_ID, proj.thumbnail_file_id);
         } catch (delErr) {
@@ -928,9 +928,13 @@ function Admin() {
                             <td className="p-5 font-semibold text-gray-400 font-display">{proj.sort_order || 0}</td>
                             <td className="p-5">
                               <div className="flex items-center gap-3">
-                                {proj.thumbnail_file_id ? (
+                                {(proj.thumbnail_file_id && proj.thumbnail_file_id !== 'auto_screenshot') || proj.live_url ? (
                                   <img 
-                                    src={getFilePreviewUrl(proj.thumbnail_file_id, 100, 70)} 
+                                    src={
+                                      (proj.thumbnail_file_id && proj.thumbnail_file_id !== 'auto_screenshot')
+                                        ? getFilePreviewUrl(proj.thumbnail_file_id, 100, 70)
+                                        : `https://api.microlink.io/?url=${encodeURIComponent(proj.live_url)}&screenshot=true&embed=screenshot.url`
+                                    } 
                                     alt="Thumbnail" 
                                     className="w-10 h-7 object-cover rounded border border-white/10" 
                                   />
@@ -1320,10 +1324,11 @@ function Admin() {
                   <label className="block text-[10px] font-bold text-gray-300 uppercase tracking-wider">Project Thumbnail Image</label>
                   <div className="flex items-center gap-4">
                     <div className="w-24 h-16 bg-surface-2 border border-white/5 rounded-lg overflow-hidden flex items-center justify-center text-[10px] text-gray-500 select-none">
-                      {modalThumbnailId ? (
+                      {(modalThumbnailId && modalThumbnailId !== 'auto_screenshot') || (modalLiveUrl && modalLiveUrl.trim() !== '') ? (
                         (() => {
-                          const url = getFilePreviewUrl(modalThumbnailId, 100, 70);
-                          console.log("Admin Modal Thumbnail Preview URL:", url);
+                          const url = (modalThumbnailId && modalThumbnailId !== 'auto_screenshot')
+                            ? getFilePreviewUrl(modalThumbnailId, 100, 70)
+                            : `https://api.microlink.io/?url=${encodeURIComponent(modalLiveUrl.trim())}&screenshot=true&embed=screenshot.url`;
                           return (
                             <img 
                               src={url} 

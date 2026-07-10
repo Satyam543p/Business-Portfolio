@@ -62,7 +62,7 @@ function Navbar() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
-  const brandName = data?.headline || 'Satyam Kr. Pandey';
+  const brandName = data?.headline || 'Satyam Pandey';
 
   return (
     <>
@@ -82,9 +82,14 @@ function Navbar() {
           <a
             href="#"
             onClick={scrollToTop}
-            className="font-display text-lg font-bold text-[var(--color-text-primary)] hover:text-[var(--color-accent)] transition-colors"
+            className="flex items-center gap-2.5 font-display text-lg font-bold text-[var(--color-text-primary)] hover:text-[var(--color-accent)] transition-colors group"
           >
-            {brandName}
+            <img 
+              src="/favicon.svg" 
+              alt="Code Captain Studio Logo" 
+              className="w-6 h-6 object-contain transition-transform duration-300 group-hover:scale-110" 
+            />
+            <span>{brandName}</span>
           </a>
 
           {/* Desktop Nav Links */}

@@ -109,10 +109,6 @@ function Hero() {
       )
     : null;
 
-  if (avatarUrl) {
-    console.log("Hero Avatar URL:", avatarUrl);
-  }
-
   // Loading State
   if (status === 'loading' || status === 'idle') {
     return (
@@ -178,7 +174,7 @@ function Hero() {
 
             {/* Sub-text */}
             <p className="hero-animate text-[var(--color-text-secondary)] text-base sm:text-lg leading-relaxed max-w-xl mb-8">
-              I design and engineer premium web applications, immersive digital experiences, and scalable internal systems that drive growth and establish market authority.
+              {data?.bio || 'I design and engineer premium web applications, immersive digital experiences, and scalable internal systems that drive growth and establish market authority.'}
             </p>
 
             {/* CTA Row */}
@@ -260,10 +256,10 @@ function Hero() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-4 py-2 glass-card rounded-xl text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors"
-                  aria-label="GitHub Profile — Satyam Kr. Pandey"
+                  aria-label="GitHub Profile — Satyam Pandey"
                 >
                   <GithubIcon size={16} />
-                  <span className="hidden sm:inline">Satyam Kr. Pandey</span>
+                  <span className="hidden sm:inline">Satyam Pandey</span>
                 </a>
               )}
               {data?.linkedin_url && (

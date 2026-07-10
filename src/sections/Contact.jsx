@@ -8,8 +8,8 @@ import { Send, CheckCircle, Clock, MessageSquare, AlertTriangle } from 'lucide-r
 // Input field component for DRY (Defined outside to prevent recreating on parent render)
 const InputField = ({ id, label, required, type = 'text', value, onChange, error, placeholder, maxLength = 120, disabled }) => (
   <div className="text-left">
-    <label htmlFor={id} className="block text-xs font-semibold text-[var(--color-text-on-light-secondary)] uppercase tracking-wider mb-2">
-      {label} {required && <span className="text-[var(--color-accent)]">*</span>}
+    <label htmlFor={id} className="block text-xs font-semibold text-text-on-light-secondary uppercase tracking-wider mb-2">
+      {label} {required && <span className="text-accent">*</span>}
     </label>
     <input
       id={id}

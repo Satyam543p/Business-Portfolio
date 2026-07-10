@@ -44,9 +44,14 @@ function Footer() {
             <a
               href="#"
               onClick={scrollToTop}
-              className="font-display text-xl font-bold text-[var(--color-text-primary)] hover:text-[var(--color-accent)] transition-colors"
+              className="flex items-center gap-2.5 font-display text-xl font-bold text-[var(--color-text-primary)] hover:text-[var(--color-accent)] transition-colors group"
             >
-              {data?.headline || 'Satyam Kr. Pandey'}
+              <img 
+                src="/favicon.svg" 
+                alt="Code Captain Studio Logo" 
+                className="w-7 h-7 object-contain transition-transform duration-300 group-hover:scale-110" 
+              />
+              <span>{data?.headline || 'Satyam Pandey'}</span>
             </a>
             <p className="text-sm text-[var(--color-text-muted)] mt-3 leading-relaxed max-w-xs">
               Building custom direct-booking platforms that help hospitality & real estate businesses eliminate aggregator commissions.
@@ -60,7 +65,7 @@ function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-9 h-9 rounded-xl bg-[var(--color-surface-3)] hover:bg-[var(--color-accent)] flex items-center justify-center text-[var(--color-text-muted)] hover:text-white transition-all"
-                  aria-label="GitHub — Satyam Kr. Pandey"
+                  aria-label="GitHub — Satyam Pandey"
                 >
                   <GithubIcon size={16} />
                 </a>
@@ -122,7 +127,7 @@ function Footer() {
           <p className="text-xs text-[var(--color-text-muted)] flex items-center gap-1">
             © {new Date().getFullYear()} · Designed & Built with
             <Heart size={12} className="text-[var(--color-accent)] fill-current" />
-            by Satyam Kr. Pandey
+            by Satyam Pandey
           </p>
 
           {/* Back to Top */}

@@ -104,9 +104,7 @@ function Showcase() {
 
   // ── Thumbnail URL builder ──
   const getThumb = (fileId, w = 640, h = 400) => {
-    const url = getFilePreviewUrl(fileId, w, h);
-    console.log(`Showcase Thumbnail URL (${fileId}):`, url);
-    return url;
+    return getFilePreviewUrl(fileId, w, h);
   };
 
   if (status === 'loading' || status === 'idle') {
@@ -190,9 +188,13 @@ function Showcase() {
                       Premium Design Asset
                     </span>
 
-                    {item.thumbnail_file_id ? (
+                    {(item.thumbnail_file_id && item.thumbnail_file_id !== 'auto_screenshot') || item.live_url ? (
                       <img
-                        src={getThumb(item.thumbnail_file_id, isLarge ? 960 : 640, isLarge ? 600 : 400)}
+                        src={
+                          (item.thumbnail_file_id && item.thumbnail_file_id !== 'auto_screenshot')
+                            ? getThumb(item.thumbnail_file_id, isLarge ? 960 : 640, isLarge ? 600 : 400)
+                            : `https://api.microlink.io/?url=${encodeURIComponent(item.live_url)}&screenshot=true&embed=screenshot.url`
+                        }
                         alt={item.title}
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                         loading={idx < 3 ? 'eager' : 'lazy'}
@@ -333,9 +335,13 @@ function Showcase() {
                       <span className="absolute text-xs text-[var(--color-text-muted)] select-none">
                         Premium Design Asset
                       </span>
-                      {item.thumbnail_file_id && (
+                      {((item.thumbnail_file_id && item.thumbnail_file_id !== 'auto_screenshot') || item.live_url) && (
                         <img
-                          src={getThumb(item.thumbnail_file_id, 480, 300)}
+                          src={
+                            (item.thumbnail_file_id && item.thumbnail_file_id !== 'auto_screenshot')
+                              ? getThumb(item.thumbnail_file_id, 480, 300)
+                              : `https://api.microlink.io/?url=${encodeURIComponent(item.live_url)}&screenshot=true&embed=screenshot.url`
+                          }
                           alt={item.title}
                           className="absolute inset-0 w-full h-full object-cover transition-all duration-500 hover:scale-105 z-10"
                           loading="lazy"
