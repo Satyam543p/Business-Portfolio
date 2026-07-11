@@ -26,10 +26,10 @@ function Navbar() {
       if (timeoutId) clearTimeout(timeoutId);
       
       timeoutId = setTimeout(() => {
-        if (!isMouseAtTop && !mobileOpen) {
+        if (!isMouseAtTop && !mobileOpen && window.scrollY > 20) {
           setVisible(false);
         }
-      }, 5000);
+      }, 2000);
     };
 
     const handleScroll = () => {
