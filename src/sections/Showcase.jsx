@@ -16,12 +16,8 @@ function Showcase() {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
 
-  // Build unique categories from data
   const published = items?.filter((item) => item.is_published !== false && item.title !== '__SYSTEM_CATEGORIES__') || [];
-  const baseCategories = ['All', ...new Set(published.map((i) => i.category).filter(Boolean))];
-  const categories = [...baseCategories];
-  if (!categories.includes('education')) categories.push('education');
-  if (!categories.includes('personal')) categories.push('personal');
+  const categories = ['All', ...new Set(published.map((i) => i.category).filter(Boolean))];
 
   const filtered = activeCategory === 'All' ? published : published.filter((item) => item.category === activeCategory);
 

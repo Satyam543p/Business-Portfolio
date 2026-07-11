@@ -245,7 +245,7 @@ function Admin() {
         .map(p => p.category)
     ));
 
-    const fallbackList = ['Hospitality', 'Real Estate', 'SaaS', 'E-commerce'];
+    const fallbackList = ['Hospitality', 'Real Estate', 'SaaS', 'E-commerce', 'EdTech', 'personal'];
     const combinedDefaults = Array.from(new Set([...fallbackList, ...activeCategories]));
     
     if (!presetDoc) {

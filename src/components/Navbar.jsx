@@ -5,6 +5,7 @@ import { Menu, X, ArrowRight } from 'lucide-react';
 const NAV_LINKS = [
   { label: 'Work', href: '#showcase' },
   { label: 'Calculator', href: '#calculator' },
+  { label: 'Pricing', href: '#pricing' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -12,23 +13,55 @@ function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const [visible, setVisible] = useState(true);
   const { data } = useSelector((state) => state.profile);
 
-  // Throttled scroll listener for backdrop blur
+  // Throttled scroll listener + inactivity timer + mouse tracker
   useEffect(() => {
-    let ticking = false;
+    let timeoutId = null;
+    let isMouseAtTop = false;
+
+    const resetTimer = () => {
+      setVisible(true);
+      if (timeoutId) clearTimeout(timeoutId);
+      
+      timeoutId = setTimeout(() => {
+        if (!isMouseAtTop && !mobileOpen) {
+          setVisible(false);
+        }
+      }, 5000);
+    };
+
     const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          setScrolled(window.scrollY > 20);
-          ticking = false;
-        });
-        ticking = true;
+      setScrolled(window.scrollY > 20);
+      resetTimer();
+    };
+
+    const handleMouseMove = (e) => {
+      const nearTop = e.clientY < 80;
+      if (nearTop !== isMouseAtTop) {
+        isMouseAtTop = nearTop;
+        if (nearTop) {
+          setVisible(true);
+          if (timeoutId) clearTimeout(timeoutId);
+        } else {
+          resetTimer();
+        }
       }
     };
+
+    // Initialize timer
+    resetTimer();
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [mobileOpen]);
 
   // IntersectionObserver for active section tracking
   useEffect(() => {
@@ -71,11 +104,11 @@ function Navbar() {
       </a>
       <nav
         aria-label="Main navigation"
-        className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-5xl transition-all duration-500 rounded-2xl ${
+        className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-5xl transition-all duration-300 rounded-2xl ${
           scrolled
             ? 'bg-[var(--color-surface-1)]/80 backdrop-blur-2xl border border-white/[0.06] shadow-lg shadow-black/20'
             : 'bg-transparent'
-        }`}
+        } ${visible || mobileOpen ? 'opacity-100 translate-y-0' : 'opacity-20 hover:opacity-100 translate-y-0'}`}
       >
         <div className="flex items-center justify-between px-5 py-3">
           {/* Logo / Brand */}
