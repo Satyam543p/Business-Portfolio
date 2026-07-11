@@ -24,6 +24,14 @@ const FAQS = [
     a: 'It depends on your investment tier. If you purchase any one-time build plan (Starter, Business Standard, Premium Dynamic, or Custom Web App), you own 100% of the code, database, and domain from Day 1. For monthly retainer models, codebase ownership transfers to you after completing the agreed retainer commitment term.',
   },
   {
+    q: 'What are your payment terms?',
+    a: 'For all custom-coded build projects, standard terms are a 50% advance payment to initiate design and development work, with the remaining 50% balance due upon milestone completion and pre-launch client review.',
+  },
+  {
+    q: 'Do I have to pay a monthly fee for hosting or server upkeep?',
+    a: 'No. Unlike Wix, Shopify, or template agencies that markup hosting costs, I deploy custom code directly to free/low-cost high-speed servers (like Netlify, Vercel, or Appwrite). You only pay the direct cost of your custom domain (around ₹800–₹1,000/year). Tier 2 & 3 builds even include 1 full year of hosting for free.',
+  },
+  {
     q: 'Why shouldn\'t I just hire a cheap agency for ₹5,000?',
     a: 'Cheap agencies use bloated, copy-paste WordPress templates that load slowly, get hacked easily, and look identical to your competitors. Furthermore, they often trap you with hidden fees for minor edits. I provide a 100% custom-coded, high-performance solution starting from Tier 1 (₹5,000) up to enterprise-level apps—with direct WhatsApp support.',
   },

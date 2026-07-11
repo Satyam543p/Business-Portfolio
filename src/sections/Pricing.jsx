@@ -10,7 +10,7 @@ const BUILD_TIERS = [
   {
     name: 'Starter (Tier 1)',
     price: '₹5,000 – ₹15,000',
-    desc: 'Perfect for salons, tuition centers, single-doctor clinics, small kirana-adjacent shops, and freelancers.',
+    desc: 'Perfect for salons, tuition centers, single-doctor clinics, small kirana-adjacent shops, freelancers, personal portfolios, students, and small NGOs.',
     delivery: '3–5 days',
     features: [
       '1–5 Pages (Home, Services, Gallery, Contact, etc.)',
@@ -28,8 +28,8 @@ const BUILD_TIERS = [
   },
   {
     name: 'Business Standard (Tier 2)',
-    price: '₹15,000 – ₹40,000',
-    desc: 'Best for active clinics, restaurants, boutique hotels, gyms, and local retailers.',
+    price: '₹15,000 – ₹35,000',
+    desc: 'Best for active clinics, restaurants, boutique hotels, gyms, local retailers, schools (admissions/announcements pages), and diagnostic centers.',
     delivery: '7–12 days',
     features: [
       'Everything in Tier 1 included',
@@ -47,8 +47,8 @@ const BUILD_TIERS = [
   },
   {
     name: 'Premium Dynamic (Tier 3)',
-    price: '₹40,000 – ₹1,00,000+',
-    desc: 'Best for hotels, schools, multi-branch restaurants, real estate agencies, and clubs.',
+    price: '₹55,000 – ₹1,00,000+',
+    desc: 'Best for hotels, real estate agencies, clubs, hospitals (department + appointment booking pages), and multi-branch schools.',
     delivery: '2–4 weeks',
     features: [
       'Everything in Tier 2 included',
@@ -623,7 +623,7 @@ function Pricing() {
         {/* Post-Launch Maintenance & Ownership Clarification */}
         <div className="mt-16 text-left max-w-4xl mx-auto pricing-header-elements">
           <h3 className="font-display text-lg font-bold text-[var(--color-text-on-light)] mb-6 text-center">
-            Transparency on Code Ownership & Setup Strategy
+            Transparency on Code Ownership &amp; Setup Strategy
           </h3>
           <div className="bg-white/50 backdrop-blur-md border border-black/5 rounded-2xl overflow-hidden shadow-sm">
             <div className="grid grid-cols-1 md:grid-cols-2 border-b border-black/5">
@@ -644,16 +644,26 @@ function Pricing() {
                 </p>
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2">
-              <div className="p-6 border-r border-black/5 md:border-b-0 border-b">
+            <div className="grid grid-cols-1 md:grid-cols-2 border-b border-black/5">
+              <div className="p-6 border-r border-black/5">
+                <h4 className="text-xs font-bold text-[var(--color-text-on-light)] uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                  <Plus size={14} className="text-[var(--color-accent)]" /> Payment &amp; Milestone Terms
+                </h4>
+                <p className="text-xs text-[var(--color-text-on-light-secondary)] leading-relaxed">
+                  <strong>Standard terms:</strong> 50% advance to begin work, remaining balance due on milestone completion / pre-launch, in line with standard industry practice.
+                </p>
+              </div>
+              <div className="p-6">
                 <h4 className="text-xs font-bold text-[var(--color-text-on-light)] uppercase tracking-wider mb-2 flex items-center gap-1.5">
                   <Clock size={14} className="text-[var(--color-accent)]" /> Minor Maintenance Swaps
                 </h4>
                 <p className="text-xs text-[var(--color-text-on-light-secondary)] leading-relaxed">
-                  Included for the first 3 months on one-time plans to iron out early changes. Beyond 3 months, you can transition to a baseline AMC plan to cover routine updates, backups, and compatibility testing.
+                  Up to 5 minor content swaps included in the first 3 months on one-time plans to iron out early changes. Beyond 3 months, baseline AMC options are available.
                 </p>
               </div>
-              <div className="p-6">
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2">
+              <div className="p-6 border-r border-black/5 md:border-b-0 border-b">
                 <h4 className="text-xs font-bold text-[var(--color-text-on-light)] uppercase tracking-wider mb-2 flex items-center gap-1.5">
                   <Server size={14} className="text-[var(--color-accent)]" /> Local Optimization
                 </h4>
@@ -661,11 +671,16 @@ function Pricing() {
                   Pricing adjustments up to ±20% are available to align with metro vs. smaller tier cities in India, urgency tags, and specific platform scope definitions under mutual agreement.
                 </p>
               </div>
+              <div className="p-6 bg-black/[0.01]">
+                <h4 className="text-xs font-bold text-[var(--color-text-on-light)] uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                  <Check size={14} className="text-[var(--color-accent)]" /> Contract Sign-off
+                </h4>
+                <p className="text-xs text-[var(--color-text-on-light-secondary)] leading-relaxed">
+                  All engagements, milestones, and deliverables are formally structured and signed under mutually protective contract agreements prior to project kick-off.
+                </p>
+              </div>
             </div>
           </div>
-          <p className="text-center text-[10px] text-[var(--color-text-on-light-muted)] mt-4">
-            * All engagements, milestones, and deliverables are formally structured and signed under contract prior to project kick-off.
-          </p>
         </div>
       </div>
     </section>

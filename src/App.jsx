@@ -1,4 +1,4 @@
-import { useState, useEffect, Component } from 'react';
+import { useState, useEffect, Component, lazy, Suspense } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchProfile } from './store/slices/profileSlice.js';
 import Navbar from './components/Navbar.jsx';
@@ -12,7 +12,8 @@ import Pricing from './sections/Pricing.jsx';
 import FAQ from './sections/FAQ.jsx';
 import Contact from './sections/Contact.jsx';
 import Footer from './components/Footer.jsx';
-import Admin from './sections/Admin.jsx';
+
+const Admin = lazy(() => import('./sections/Admin.jsx'));
 
 /* ── Error Boundary ── */
 class ErrorBoundary extends Component {
@@ -75,7 +76,16 @@ function App() {
   if (isAdminRoute) {
     return (
       <ErrorBoundary>
-        <Admin />
+        <Suspense fallback={
+          <div className="min-h-screen bg-[var(--color-surface-0)] flex items-center justify-center">
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-10 h-10 border-4 border-[var(--color-accent)]/20 border-t-[var(--color-accent)] rounded-full animate-spin" />
+              <span className="text-xs text-[var(--color-text-secondary)] font-medium">Loading Admin Panel...</span>
+            </div>
+          </div>
+        }>
+          <Admin />
+        </Suspense>
       </ErrorBoundary>
     );
   }

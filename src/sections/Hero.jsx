@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -21,8 +21,6 @@ import { getFilePreviewUrl } from '../lib/appwrite.js';
 const STATS = [
   { id: 'projects', label: 'Premium Brands Built', suffix: '+' },
   { id: 'years', label: 'Years Coding', suffix: '+' },
-  { id: 'satisfaction', label: 'Customer Reach', suffix: 'k+' },
-  { id: 'revenue', label: 'Client Growth', prefix: '>', suffix: '%' },
 ];
 
 function Hero() {
@@ -31,6 +29,7 @@ function Hero() {
   const { items: caseStudies } = useSelector((state) => state.caseStudies);
   const containerRef = useRef(null);
   const statRefs = useRef({});
+  const [imageLoadFailed, setImageLoadFailed] = useState(false);
 
   // Fetch case studies for stats
   useEffect(() => {
@@ -41,8 +40,6 @@ function Hero() {
   const statValues = {
     projects: caseStudies?.length || 4,
     years: 4,
-    satisfaction: 10,
-    revenue: 50,
   };
 
   // GSAP Entrance Animation
@@ -156,7 +153,7 @@ function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto w-full px-6 py-24 lg:py-32">
+      <div className="relative z-10 max-w-6xl mx-auto w-full px-6 py-24 ">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
           {/* Left — Text Content */}
@@ -164,17 +161,23 @@ function Hero() {
             {/* Badge */}
             <div className="hero-animate inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[var(--color-accent)]/20 bg-[var(--color-accent-subtle)] text-xs font-semibold text-[var(--color-accent-light)] mb-6">
               <Sparkles size={14} />
-              {data?.sub_headline || 'Brand Growth & Premium Web Engineering'}
+              {data?.sub_headline || 'Custom Portals & Admissions Architecture'}
             </div>
 
             {/* Headline */}
             <h1 className="hero-animate font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-6">
-              Engineer Custom <span className="text-gradient">Digital Ecosystems.</span>
+              {data?.hero_title ? (
+                data.hero_title
+              ) : (
+                <>
+                  Custom Booking, Admissions <span className="text-gradient">&amp; Inquiry Systems.</span>
+                </>
+              )}
             </h1>
 
             {/* Sub-text */}
             <p className="hero-animate text-[var(--color-text-secondary)] text-base sm:text-lg leading-relaxed max-w-xl mb-8">
-              {data?.bio || 'I design and engineer premium web applications, immersive digital experiences, and scalable internal systems that drive growth and establish market authority.'}
+              {data?.bio || 'Custom-built booking, admissions, and inquiry systems that put you in control — no templates, no monthly SaaS lock-in.'}
             </p>
 
             {/* CTA Row */}
@@ -200,7 +203,7 @@ function Hero() {
             </div>
 
             {/* Stat Counters */}
-            <div className="hero-animate grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="hero-animate grid grid-cols-2 gap-4 max-w-sm">
               {STATS.map((stat) => (
                 <div key={stat.id} className="glass-card rounded-xl px-4 py-3 text-center">
                   <div className="text-2xl font-display font-bold text-[var(--color-text-primary)]" style={{ fontVariantNumeric: 'tabular-nums' }}>
@@ -233,12 +236,12 @@ function Hero() {
               
               {/* Static Image Container */}
               <div className="absolute inset-[6px] rounded-full overflow-hidden bg-[var(--color-surface-2)] flex items-center justify-center">
-                {avatarUrl ? (
+                {avatarUrl && !imageLoadFailed ? (
                   <img
                     src={avatarUrl}
                     alt={data?.headline || 'Profile avatar'}
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                    onError={(e) => { e.target.style.display = 'none'; }}
+                    onError={() => setImageLoadFailed(true)}
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-4xl sm:text-5xl font-display font-bold text-gray-500">

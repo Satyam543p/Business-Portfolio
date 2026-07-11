@@ -51,6 +51,7 @@ function Admin() {
   // Profile Form States
   const [profileDoc, setProfileDoc] = useState(null);
   const [profileHeadline, setProfileHeadline] = useState(''); // database: headline (Brand Name)
+  const [profileHeroTitle, setProfileHeroTitle] = useState(''); // database: hero_title
   const [profileSubHeadline, setProfileSubHeadline] = useState(''); // database: sub_headline (Subtitle / Badge)
   const [profileBio, setProfileBio] = useState(''); // database: bio (Short Bio Pitch)
   const [profileWhatsapp, setProfileWhatsapp] = useState(''); // database: whatsapp_number
@@ -166,6 +167,7 @@ function Admin() {
         const doc = res.documents[0];
         setProfileDoc(doc);
         setProfileHeadline(doc.headline || '');
+        setProfileHeroTitle(doc.hero_title || '');
         setProfileSubHeadline(doc.sub_headline || '');
         setProfileBio(doc.bio || '');
         setProfileWhatsapp(doc.whatsapp_number || '');
@@ -184,6 +186,7 @@ function Admin() {
     try {
       await databases.updateDocument(DATABASE_ID, AGENCY_PROFILE_COLLECTION_ID, profileDoc.$id, {
         headline: profileHeadline,
+        hero_title: profileHeroTitle,
         sub_headline: profileSubHeadline,
         bio: profileBio,
         whatsapp_number: profileWhatsapp,
@@ -825,6 +828,16 @@ function Admin() {
                         onChange={(e) => setProfileEmail(e.target.value)} 
                         className="w-full bg-surface-3/50 border border-white/5 focus:border-accent text-sm text-white px-4 py-3 rounded-xl outline-none transition-colors"
                         placeholder="e.g. contact@codecaptain.com"
+                      />
+                    </div>
+                    <div className="md:col-span-2">
+                      <label className="block text-[10px] font-bold text-gray-300 uppercase tracking-wider mb-2">Hero Headline (H1 Core Title)</label>
+                      <input 
+                        type="text" 
+                        value={profileHeroTitle} 
+                        onChange={(e) => setProfileHeroTitle(e.target.value)} 
+                        className="w-full bg-surface-3/50 border border-white/5 focus:border-accent text-sm text-white px-4 py-3 rounded-xl outline-none transition-colors"
+                        placeholder="e.g. Custom Booking, Admissions & Inquiry Systems"
                       />
                     </div>
                     <div className="md:col-span-2">

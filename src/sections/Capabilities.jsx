@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Globe, Compass, BarChart3, Smartphone } from 'lucide-react';
+import { Globe, Compass, BarChart3, Smartphone, Zap } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,17 +25,17 @@ const CAPABILITIES = [
   },
   {
     id: 'dashboards',
-    title: 'Internal Dashboards & Systems',
+    title: 'Admin Portals & Dashboards',
     icon: BarChart3,
-    desc: 'Operational software, CRM integrations, and admin dashboards built to streamline bookings, databases, and business operations.',
+    desc: 'Admin panels & portal dashboards built for schools, clinics, and local agencies to easily manage admissions, appointments, staff scheduling, and operations.',
     color: 'from-emerald-500/20 to-teal-500/5',
     iconColor: 'text-emerald-500',
   },
   {
     id: 'native-apps',
-    title: 'Cross-Platform Native Apps',
+    title: 'Mobile Booking & Portal Apps',
     icon: Smartphone,
-    desc: 'High-quality React Native iOS and Android apps sharing a unified backend ecosystem for frictionless mobile distribution.',
+    desc: 'iOS and Android mobile apps designed for clinics, schools, and service providers to offer direct booking, scheduling, and portal access to their users.',
     color: 'from-purple-500/20 to-pink-500/5',
     iconColor: 'text-purple-500',
   },
@@ -83,7 +83,7 @@ function Capabilities() {
             Technical Capabilities
           </span>
           <h2 className="font-display text-2xl sm:text-3xl font-bold text-[var(--color-text-primary)] mt-4">
-            Engineering Premium <span className="text-gradient">Digital Architecture</span>
+            Direct-Booking &amp; <span className="text-gradient">Admissions Architecture</span>
           </h2>
         </div>
 
@@ -110,6 +110,68 @@ function Capabilities() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Speed Audits / Tech Proof Comparison */}
+        <div className="mt-16 capability-card glass-card rounded-3xl p-6 sm:p-8 relative overflow-hidden border border-white/5 max-w-4xl mx-auto">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-accent)]/5 blur-[50px] rounded-full pointer-events-none" />
+          
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            {/* Explainer */}
+            <div className="md:col-span-5 text-left">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[var(--color-accent)]/20 bg-[var(--color-accent)]/[0.06] text-[10px] font-bold text-[var(--color-accent-light)] uppercase tracking-wider mb-4">
+                <Zap size={10} className="fill-[var(--color-accent)]" /> Performance Ledger
+              </div>
+              <h3 className="font-display text-lg font-bold text-[var(--color-text-primary)] mb-3">
+                Why Custom Code Wins Over Cheap Templates
+              </h3>
+              <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed">
+                Cheap WordPress templates load bloated scripts, crashing performance on mobile networks. Code Captain websites are custom-engineered to load instantly, improving customer retention by up to 40% in tier-2 and tier-3 locations.
+              </p>
+            </div>
+            
+            {/* Speed Comparison Visualizer */}
+            <div className="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Bloated template */}
+              <div className="bg-[var(--color-surface-1)] border border-white/5 rounded-2xl p-5 flex flex-col justify-between text-left">
+                <div>
+                  <span className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-wider block mb-1">Typical Builder / WordPress</span>
+                  <h4 className="text-sm font-bold text-red-400 mb-4">Slow Template Site</h4>
+                </div>
+                <div className="flex items-center gap-4">
+                  {/* Gauge representation */}
+                  <div className="relative w-16 h-16 flex items-center justify-center rounded-full border-4 border-red-500/10 text-red-400">
+                    <span className="text-lg font-bold font-display">42</span>
+                    <span className="text-[8px] absolute bottom-1.5">Speed</span>
+                  </div>
+                  <div className="text-xs space-y-1">
+                    <p className="text-[var(--color-text-secondary)]">⏱️ Load time: <span className="font-semibold text-red-400">3.8s</span></p>
+                    <p className="text-[var(--color-text-muted)] text-[10px]">Loses 25% visitors before load</p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Code Captain site */}
+              <div className="bg-[var(--color-surface-2)] border border-[var(--color-accent)]/20 rounded-2xl p-5 flex flex-col justify-between text-left relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-20 h-20 bg-[var(--color-accent)]/5 blur-xl rounded-full" />
+                <div>
+                  <span className="text-[10px] font-bold text-[var(--color-accent-light)] uppercase tracking-wider block mb-1">Code Captain Standard</span>
+                  <h4 className="text-sm font-bold text-[var(--color-accent-light)] mb-4">Custom React Engine</h4>
+                </div>
+                <div className="flex items-center gap-4">
+                  {/* Gauge representation */}
+                  <div className="relative w-16 h-16 flex items-center justify-center rounded-full border-4 border-[var(--color-accent)]/30 text-[var(--color-accent-light)] shadow-[0_0_15px_rgba(249,115,22,0.15)]">
+                    <span className="text-lg font-bold font-display">100</span>
+                    <span className="text-[8px] absolute bottom-1.5">Speed</span>
+                  </div>
+                  <div className="text-xs space-y-1">
+                    <p className="text-[var(--color-text-secondary)]">⏱️ Load time: <span className="font-semibold text-[var(--color-accent-light)]">0.4s</span></p>
+                    <p className="text-[var(--color-accent-light)] text-[10px]">Zero conversion leakage</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

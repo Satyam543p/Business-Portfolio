@@ -5,7 +5,9 @@ import gsap from 'gsap';
 import { Lightbulb, ArrowRight } from 'lucide-react';
 import {
   setMonthlyRevenue,
+  setBusinessType,
   selectMonthlyRevenue,
+  selectBusinessType,
   selectMonthlyLoss,
   selectAnnualLoss,
 } from '../store/slices/calculatorSlice.js';
@@ -13,6 +15,7 @@ import {
 function Calculator() {
   const dispatch = useDispatch();
   const monthlyRevenue = useSelector(selectMonthlyRevenue);
+  const businessType = useSelector(selectBusinessType);
   const monthlyLoss = useSelector(selectMonthlyLoss);
   const annualLoss = useSelector(selectAnnualLoss);
 
@@ -121,6 +124,22 @@ function Calculator() {
               {/* Ambient glow */}
               <div className="absolute top-0 right-0 w-40 h-40 bg-[var(--color-accent)]/5 blur-[60px] rounded-full pointer-events-none" />
 
+              {/* Business Category Selector */}
+              <div className="mb-8 text-left">
+                <label htmlFor="business-type-select" className="text-xs font-bold text-[var(--color-text-secondary)] uppercase tracking-wider block mb-3">
+                  Your Business Category
+                </label>
+                <select
+                  id="business-type-select"
+                  value={businessType}
+                  onChange={(e) => dispatch(setBusinessType(e.target.value))}
+                  className="w-full bg-[var(--color-surface-1)] border border-white/5 text-sm text-[var(--color-text-primary)] px-4 py-3 rounded-xl outline-none focus:border-[var(--color-accent)] transition-colors cursor-pointer"
+                >
+                  <option value="hospitality">Hospitality &amp; Retail (Hotels, Restaurants, Shops)</option>
+                  <option value="general">Services &amp; Portals (Clinics, Schools, Salons, Portfolios)</option>
+                </select>
+              </div>
+
               {/* Revenue Input */}
               <div className="mb-10 text-left">
                 <div className="flex justify-between items-baseline mb-4">
@@ -161,7 +180,7 @@ function Calculator() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10">
                 <div className="bg-[var(--color-surface-1)] border border-[var(--color-surface-border)] rounded-xl p-5 text-left">
                   <span className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-wider block mb-2">
-                    Monthly Commission Loss (20%)
+                    {businessType === 'hospitality' ? 'Monthly Commission Loss (20%)' : 'Monthly Conversion Leakage (15%)'}
                   </span>
                   <span
                     ref={monthlyValRef}
@@ -175,7 +194,7 @@ function Calculator() {
                 <div className="bg-[var(--color-surface-1)] border border-[var(--color-surface-border)] rounded-xl p-5 text-left relative overflow-hidden group">
                   <div className="absolute inset-0 bg-emerald-500/[0.03] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                   <span className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-wider block mb-2">
-                    Annual Reinvestable Savings
+                    {businessType === 'hospitality' ? 'Annual Reinvestable Savings' : 'Annual Recoverable Revenue'}
                   </span>
                   <span
                     ref={annualValRef}

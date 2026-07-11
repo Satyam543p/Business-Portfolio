@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ExternalLink, TrendingUp, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ExternalLink, TrendingUp, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import { getFilePreviewUrl } from '../lib/appwrite.js';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -18,7 +18,11 @@ function Showcase() {
 
   // Build unique categories from data
   const published = items?.filter((item) => item.is_published !== false && item.title !== '__SYSTEM_CATEGORIES__') || [];
-  const categories = ['All', ...new Set(published.map((i) => i.category).filter(Boolean))];
+  const baseCategories = ['All', ...new Set(published.map((i) => i.category).filter(Boolean))];
+  const categories = [...baseCategories];
+  if (!categories.includes('education')) categories.push('education');
+  if (!categories.includes('personal')) categories.push('personal');
+
   const filtered = activeCategory === 'All' ? published : published.filter((item) => item.category === activeCategory);
 
   // ── 3D Tilt Handler ──
@@ -285,8 +289,22 @@ function Showcase() {
             })}
           </div>
         ) : (
-          <div className="text-center py-16">
-            <p className="text-[var(--color-text-muted)] text-sm">No projects found in this category.</p>
+          <div className="flex flex-col items-center justify-center text-center py-16 px-6 glass-card rounded-3xl border border-white/5 max-w-lg mx-auto mb-12">
+            <div className="w-12 h-12 rounded-2xl bg-[var(--color-accent-subtle)] text-[var(--color-accent-light)] flex items-center justify-center mb-4 border border-[var(--color-accent)]/20 animate-pulse">
+              <Sparkles size={20} />
+            </div>
+            <h4 className="font-display text-lg font-bold text-[var(--color-text-primary)] mb-2">Projects Coming Soon</h4>
+            <p className="text-[var(--color-text-secondary)] text-sm max-w-sm leading-relaxed">
+              I am currently engineering custom digital solutions for this sector. Check back shortly, or reach out to design yours!
+            </p>
+            <a
+              href={`https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER || '919999999999'}?text=${encodeURIComponent("Hi Satyam, I'd like to discuss a custom build project in the " + activeCategory + " space.")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--color-accent)] hover:bg-[var(--color-accent-dark)] text-white text-xs font-semibold rounded-xl transition-all active:scale-95 shadow-md shadow-orange-500/15"
+            >
+              Inquire About Custom Builds
+            </a>
           </div>
         )}
 
