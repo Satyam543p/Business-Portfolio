@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://codecaptain.studio/sitemap.xml
+Sitemap: https://codecaptainstudio.netlify.app/sitemap.xml
